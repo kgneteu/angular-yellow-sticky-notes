@@ -1,0 +1,41 @@
+<mat-card (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
+  <mat-card-content>
+    {{stickyNote.message}}
+  </mat-card-content>
+  <mat-card-footer *ngIf="footerVisible">
+    <button (click)="onNoteEdit()" aria-label="Edit note" color="primary" mat-icon-button matTooltip="Edit Sticky Note">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button (click)="onConfirmDelete()" aria-label="Delete note" color="warn" mat-icon-button
+            matTooltip="Delete Sticky Note">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </mat-card-footer>
+</mat-card>
+<ng-template #confirmDeleteDialog>
+  <h2 matDialogTitle>Confirm</h2>
+  <div matDialogContent>
+    <mat-icon color="warn" style="font-size: 3rem; width: 3rem;float: left">help_outline</mat-icon>
+    <em [ngStyle]="{lineHeight: '3rem'}">Do you really want to delete this note?</em>
+  </div>
+  <mat-dialog-actions align="end">
+    <button (click)="onDeleteConfirmed()" color="warn" mat-raised-button matDialogClose="submit">Yes</button>
+    <button color="accent" mat-stroked-button matDialogClose>No</button>
+  </mat-dialog-actions>
+</ng-template>
+
+<ng-template #noteEditDialog>
+  <h2 matDialogTitle>Edit Sticky Note</h2>
+  <div matDialogContent>
+    <mat-form-field [ngStyle]="{width: '12rem'}">
+      <mat-label>Sticky note text</mat-label>
+      <textarea matInput rows="12" [(ngModel)]="noteMessage"></textarea>
+    </mat-form-field>
+  </div>
+  <mat-dialog-actions align="end">
+    <button (click)="onNoteSave()" color="primary" mat-raised-button matDialogClose="submit">Save</button>
+    <button color="accent" mat-stroked-button matDialogClose>Cancel</button>
+  </mat-dialog-actions>
+</ng-template>
+
+

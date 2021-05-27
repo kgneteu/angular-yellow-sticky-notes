@@ -1,0 +1,17 @@
+<button [ngClass]="['aniButton']" [@buttonMoveIn]="buttonState" aria-label="Add sticky note" color="primary" mat-fab
+        matTooltip="Add Sticky Note" (click)="onAddStickyNote()">
+  <mat-icon [inline]="true">add</mat-icon>
+</button>
+<ng-template #noteAddDialog>
+  <h2 matDialogTitle>Edit Sticky Note</h2>
+  <div matDialogContent>
+    <mat-form-field [ngStyle]="{width: '12rem'}">
+      <mat-label>Sticky note text</mat-label>
+      <textarea matInput rows="12" type="text" [(ngModel)]="noteMessage"></textarea>
+    </mat-form-field>
+  </div>
+  <mat-dialog-actions align="end">
+    <button (click)="onNoteSave()" color="primary" mat-raised-button matDialogClose="submit">Save</button>
+    <button color="accent" mat-stroked-button matDialogClose>Cancel</button>
+  </mat-dialog-actions>
+</ng-template>
