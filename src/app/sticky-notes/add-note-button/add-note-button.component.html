@@ -7,11 +7,14 @@
   <div matDialogContent>
     <mat-form-field [ngStyle]="{width: '12rem'}">
       <mat-label>Sticky note text</mat-label>
-      <textarea matInput rows="12" type="text" [(ngModel)]="noteMessage"></textarea>
+      <textarea matInput rows="12" type="text" [(ngModel)]="noteMessage" #noteText></textarea>
     </mat-form-field>
   </div>
   <mat-dialog-actions align="end">
-    <button (click)="onNoteSave()" color="primary" mat-raised-button matDialogClose="submit">Save</button>
+    <button (click)="onNoteSave()"
+            color="primary" mat-raised-button
+            [disabled] ="noteText.value.length==0"
+            matDialogClose="submit">Save</button>
     <button color="accent" mat-stroked-button matDialogClose>Cancel</button>
   </mat-dialog-actions>
 </ng-template>

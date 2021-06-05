@@ -9,10 +9,11 @@ const baseUrl = '/api/sticky-notes';
   providedIn: 'root'
 })
 export class StickyNotesService {
-  private stickyNotes: StickyNote[];
+  private stickyNotes = [];
   private stickyNotesSubject = new Subject<StickyNote[]>();
 
   constructor(private http: LocalStorageService) {
+
   }
 
 
@@ -47,7 +48,7 @@ export class StickyNotesService {
 
   getAll(): StickyNote[] {
     this.http.get<StickyNote[]>(baseUrl).subscribe((stickyNotes) => {
-      this.stickyNotes = stickyNotes;
+      this.stickyNotes = [...stickyNotes];
       this.stickyNotesSubject.next(stickyNotes);
     });
     return this.stickyNotes;

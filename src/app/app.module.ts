@@ -14,6 +14,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatDialogModule} from '@angular/material/dialog';
 import {FormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
+import {StickyNotesService} from './sticky-notes/sticky-notes.service';
 
 
 @NgModule({
@@ -35,7 +36,7 @@ import {MatInputModule} from '@angular/material/input';
     MatTooltipModule,
     MatDialogModule,
   ],
-  providers: [],
+  providers: [StickyNotesService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -29,11 +29,15 @@
   <div matDialogContent>
     <mat-form-field [ngStyle]="{width: '12rem'}">
       <mat-label>Sticky note text</mat-label>
-      <textarea matInput rows="12" [(ngModel)]="noteMessage"></textarea>
+      <textarea #noteText [(ngModel)]="noteMessage" matInput rows="12"></textarea>
     </mat-form-field>
   </div>
   <mat-dialog-actions align="end">
-    <button (click)="onNoteSave()" color="primary" mat-raised-button matDialogClose="submit">Save</button>
+    <button (click)="onNoteSave()"
+            [disabled]="noteText.value==0"
+            color="primary" mat-raised-button
+            matDialogClose="submit">Save
+    </button>
     <button color="accent" mat-stroked-button matDialogClose>Cancel</button>
   </mat-dialog-actions>
 </ng-template>

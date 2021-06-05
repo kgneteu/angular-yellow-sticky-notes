@@ -17,7 +17,7 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
         fontSize: '2rem',
         lineHeight: '3rem',
         width: '15rem',
-        marginLeft: '3.6rem',
+        marginLeft: '4rem',
       })),
       transition('open => normal', animate(700)),
     ]),

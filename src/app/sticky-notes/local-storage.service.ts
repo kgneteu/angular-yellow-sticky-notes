@@ -78,7 +78,6 @@ export class LocalStorageService {
   }
 
   private getAllData<T>(table: string): T {
-    // const data: T = JSON.parse(JSON.stringify(this.stickyNotes));
     const data: T = JSON.parse(localStorage.getItem(table));
     return data;
   }
@@ -93,6 +92,7 @@ export class LocalStorageService {
     data.id = id;
     return new Observable(observer => {
         observer.next(data);
+        observer.complete();
       }
     );
   }
@@ -102,10 +102,12 @@ export class LocalStorageService {
     if (id) {
       return new Observable(observer => {
         observer.next(this.getData<T>(table, +id));
+        observer.complete();
       });
     } else {
       return new Observable(observer => {
         observer.next(this.getAllData<T>(table));
+        observer.complete();
       });
     }
   }
@@ -115,6 +117,7 @@ export class LocalStorageService {
     this.removeData(table, +id);
     return new Observable(observer => {
       observer.next();
+      observer.complete();
     });
   }
 
@@ -123,6 +126,7 @@ export class LocalStorageService {
     this.updateData(table, +id, data);
     return new Observable(observer => {
       observer.next(data);
+      observer.complete();
     });
   }
 }
