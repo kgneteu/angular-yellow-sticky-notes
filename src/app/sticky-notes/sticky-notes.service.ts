@@ -10,7 +10,7 @@ const baseUrl = '/api/sticky-notes';
 })
 export class StickyNotesService {
   private stickyNotes = [];
-  private stickyNotesSubject = new Subject<StickyNote[]>();
+  private stickyNotesUpdated = new Subject<StickyNote[]>();
 
   constructor(private http: LocalStorageService) {
 
@@ -21,7 +21,7 @@ export class StickyNotesService {
     this.http.delete<StickyNote>(`${baseUrl}/${id}`).subscribe(() => {
       const updatedNotes = this.stickyNotes.filter(note => note.id !== id);
       this.stickyNotes = updatedNotes;
-      this.stickyNotesSubject.next(updatedNotes);
+      this.stickyNotesUpdated.next(updatedNotes);
     });
   }
 
@@ -31,7 +31,7 @@ export class StickyNotesService {
       const index = this.stickyNotes.findIndex(item => item.id === data.id);
       if (index !== -1) {
         this.stickyNotes[index] = data;
-        this.stickyNotesSubject.next([...this.stickyNotes]);
+        this.stickyNotesUpdated.next([...this.stickyNotes]);
       }
     });
     return post;
@@ -41,20 +41,24 @@ export class StickyNotesService {
     const post = this.http.post<StickyNote>(baseUrl, data);
     post.subscribe((stickyNote: StickyNote) => {
       this.stickyNotes.push(stickyNote);
-      this.stickyNotesSubject.next([...this.stickyNotes]);
+      this.stickyNotesUpdated.next([...this.stickyNotes]);
     });
     return post;
   }
 
   getAll(): StickyNote[] {
     this.http.get<StickyNote[]>(baseUrl).subscribe((stickyNotes) => {
-      this.stickyNotes = [...stickyNotes];
-      this.stickyNotesSubject.next(stickyNotes);
+      if (stickyNotes) {
+        this.stickyNotes = [...stickyNotes];
+      } else {
+        this.stickyNotes = [];
+      }
+      this.stickyNotesUpdated.next(stickyNotes);
     });
     return this.stickyNotes;
   }
 
   getListener(): Observable<StickyNote[]> {
-    return this.stickyNotesSubject.asObservable();
+    return this.stickyNotesUpdated.asObservable();
   }
 }
