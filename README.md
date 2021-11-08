@@ -9,4 +9,4 @@ A simple, one-page Angular application that emulates the popular sticky notes. C
 - run `npm run start`
 
 #Demo
-View demo here
+View demo [here](https://kgneteu.github.io/angular-yellow-sticky-notes/)
